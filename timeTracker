@@ -1,0 +1,55 @@
+Timeimg tic tac toe
+
+
+Coding
+
+
+start			finish		Total	comments:
+
+01:28		01:44		16		preperations 0 lines of code so far
+
+01:52		01:58		6
+
+09:29		09:45		16
+
+10:02		10:05		3		diagnol won logic
+
+10:08		10:11			3
+
+10:28		10:35		7		coded functin ay empty sscoers ?
+
+00:03		00:06		3		writing calculate the number of empty squares on the board func
+
+00:24		00:30		6		writing return avialble moves list
+
+00:40		00:55		15		writing the player class
+
+
+
+
+Testing
+
+start			finsih		Total		comments
+
+01:44		01:52		8			preperations  only setting the infrsaucture
+
+01:58		02:17		19			mix testing and coding
+
+02:19		02:46		27
+
+09:45		10:02		17
+
+10:05		10:08		6
+
+10:14		10:28		14
+
+10:35		10:37		2
+
+23:58		00:03		5			tests calculate the number of empty squares on hte board
+
+00:08		00:16		8			writing 10 tests for calculate the number of empty squares on hte board
+
+00:16		00:24		8			writing test for return the  avilable moves on the board
+
+00:30		00:36		6			writing 4 more tests for return the avialable moves on the board
+
