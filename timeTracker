@@ -24,6 +24,16 @@ start			finish		Total	comments:
 
 00:40		00:55		15		writing the player class
 
+00:17       01:12       60      adding contracts to app module
+
+01:12       01:18       4       adding contracts to player module
+
+02:22       03:37       65      writing smart computer player class
+
+00:30       01:16       46      writing the game particepents options and while loops
+
+# Still breaking when smart bot vs amrt bot last square
+
 
 
 
@@ -53,3 +63,10 @@ start			finsih		Total		comments
 
 00:30		00:36		6			writing 4 more tests for return the avialable moves on the board
 
+20:20       20:50       30          writing test for human player get move
+
+21:05       21:15       15          writing more tests for human player move
+
+01:35       01:55       20          wrting test for random comp player
+
+23:46       00:30       46           debugigng minmax - Error found wrote a by test_minmax_check_if_X_wins_1_happy_path

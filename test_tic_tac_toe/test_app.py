@@ -5,7 +5,7 @@ from io import StringIO
 
 import app
 import fixtures
-
+import player
 
 
 class TestApp(unittest.TestCase):
@@ -18,6 +18,11 @@ class TestApp(unittest.TestCase):
             game.initiate_board()
             game.print_the_board()
             self.assertEqual(fixtures.expected_initial_board, output.getvalue())
+
+    def test_check_init_board_will_return_list_with_10_items_happy_path(self):
+        game = app.TicTacToe()
+        res = game.initiate_board()
+        self.assertEqual(len(res), 10)
 
     def test_print_the_board_when_spot_no_one_mark_with_x(self):
         with patch('sys.stdout', new=StringIO()) as output:
@@ -221,6 +226,16 @@ class TestApp(unittest.TestCase):
         game.board = ['#', '1', 'X', 'X', 'O', 'O', 'X', 'X', 'O', 'X']
         res = game.return_the_available_moves_on_the_current_board_as_a_list_of_integers()
         self.assertNotEqual([], res)
+
+
+    def test_minmax_check_if_X_wins_1_happy_path(self):
+        game = app.TicTacToe()
+        game.board = ['#', 'X', '2', 'O', '4', 'X', '6', '7', 'O', '9']
+        x_player = player.SmartComputerPlayer('X')
+        o_player = player.RandomComputerPlayer('O')
+        res = app.play(game, x_player, o_player )
+        self.assertEqual('X', res)
+
 
 
 
