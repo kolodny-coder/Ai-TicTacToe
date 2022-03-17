@@ -69,4 +69,10 @@ start			finsih		Total		comments
 
 01:35       01:55       20          wrting test for random comp player
 
-23:46       00:30       46           debugigng minmax - Error found wrote a by test_minmax_check_if_X_wins_1_happy_path
+23:46       00:30       46          debugigng minmax - Error found wrote a by test_minmax_check_if_X_wins_1_happy_path
+
+23:51      01:11        81          debugging last move by comp
+
+01:11      01:37        26          adding tests to cover different cases
+
+01:37      02:36        60            fixing broken test players class and adding test suite

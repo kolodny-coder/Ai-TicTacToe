@@ -2,6 +2,7 @@ import math
 import random
 
 from contracts import contract
+from error_classes import LogicError
 
 
 
@@ -44,6 +45,8 @@ class RandomComputerPlayer(Player):
 
     @contract
     def get_move(self, game) -> 'int,> 0,< 10':
+        if not game.return_the_available_moves_on_the_current_board_as_a_list_of_integers():
+            raise LogicError('logic mistake, No available moves for random player but the game is still on')
         return random.choice(game.return_the_available_moves_on_the_current_board_as_a_list_of_integers())
 
 

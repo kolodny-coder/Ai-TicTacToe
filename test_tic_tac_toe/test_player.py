@@ -6,6 +6,7 @@ from contracts import ContractNotRespected
 
 import app
 import player
+from error_classes import LogicError
 
 
 class TestPlayer(unittest.TestCase):
@@ -49,6 +50,7 @@ class TestPlayer(unittest.TestCase):
     def test_check_random_computer_player_get_move_returns_value_in_possible_range_happy_path(self):
         game = app.TicTacToe()
         game.board = ['#', '1', 'X', '3', 'O', '5', '6', 'O', '8', '9']
+
         random_comp_player = player.RandomComputerPlayer('X')
         res = random_comp_player.get_move(game)
         self.assertTrue(res in [1, 3, 5, 6, 8, 9])
@@ -61,18 +63,12 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(8, res)
 
 
-    def test_check_random_computer_player_raise_contract_exception_when_contract_range_is_not_respected_sad_path(self):
+    def test_check_random_computer_player_raise_LogicError_exception_when_the_game_is_still_on_and_no_empty_squares_sad_path(
+            self):
         game = app.TicTacToe()
-        game.board = ['#', '100', 'X', '300', 'O', '500', '600', 'O', '800', '900']
+        game.board = ['#', 'X', 'X', 'O', 'O', 'X', 'X', 'O', 'X', 'O']
         random_comp_player = player.RandomComputerPlayer('X')
-        with self.assertRaises(ContractNotRespected):
-            random_comp_player.get_move(game)
-
-    def test_check_random_computer_player_raise_contract_exception_when_illegal_board_is_used_sad_path(self):
-        game = app.TicTacToe()
-        game.board = ['#', '-1', 'X', 'O', 'O', 'X', 'X', 'O', '12', '11']
-        random_comp_player = player.RandomComputerPlayer('X')
-        with self.assertRaises(ContractNotRespected):
+        with self.assertRaises(LogicError):
             random_comp_player.get_move(game)
 
 

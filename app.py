@@ -3,13 +3,17 @@ import time
 from contracts import contract
 
 import player
+from utiils import *
 
 
 class TicTacToe:
 
-    def __init__(self):
-        self.board = self.initiate_board()
+    def __init__(self, board=None):
         self.current_winner = None
+        if board is None:
+            self.board = self.initiate_board()
+        else:
+            self.board = board
 
     @contract
     def initiate_board(self) -> 'list[10]':
@@ -56,7 +60,7 @@ class TicTacToe:
 
     @contract
     def check_if_there_are_any_empty_squares(self) -> 'bool':
-        return any( str(i) in self.board for i in range(9))
+        return any(str(i) in self.board for i in range(1, 10))
 
     @contract
     def calculate_the_number_of_empty_squares_on_the_board(self) -> 'int,>= 0, < 10 ':
@@ -67,13 +71,16 @@ class TicTacToe:
         return counter
 
     @contract
-    def return_the_available_moves_on_the_current_board_as_a_list_of_integers(self) -> 'list[N], N > 0':
+    def return_the_available_moves_on_the_current_board_as_a_list_of_integers(self) -> 'list[N], N >= 0':
         available_moves_list = [int(i) for i in self.board if i in ['1', '2', '3', '4', '5', '6', '7', '8', '9']]
         return available_moves_list
 
+
+@input_validator
 def game_participants():
     while True:
-        game_participates = int(input('please choose (1-3)\n 1. human vs smart bot\n 2. human vs human\n 3. human vs random bot\n 4. smart bot vs random bot\n 5. smart bot vs smart bot '))
+        game_participates = int(input(
+            'please choose (1-5)\n 1. human vs smart bot\n 2. human vs human\n 3. human vs random bot\n 4. smart bot vs random bot\n 5. smart bot vs smart bot '))
 
         if game_participates == 1:
             print('human vs smart bot\n')
@@ -90,11 +97,14 @@ def game_participants():
         elif game_participates == 5:
             print('smart bot vs random bot\n')
             return 5
+        elif game_participates == 6:
+            print('the loop exited\n')
+            return 6
         else:
             print('\n\nYou chose invalid option please choose a number between 1 - 5 try again \n\n')
 
 
-def play(print_game=True):
+def play(print_game=True, board=None):
     print('Welcome to Tic Tac Toe')
     game_on = True
     while game_on == True:
@@ -102,14 +112,15 @@ def play(print_game=True):
         if choose_game_mode == 1:
             x_player = player.SmartComputerPlayer('X')
             o_player = player.HumanPlayer('O')
-            game = TicTacToe()
+            game = TicTacToe(board)
 
         elif choose_game_mode == 2:
-            x_player = player.RandomComputerPlayer('X')
+            x_player = player.HumanPlayer('X')
             o_player = player.HumanPlayer('O')
             game = TicTacToe()
 
         elif choose_game_mode == 3:
+
             x_player = player.RandomComputerPlayer('X')
             o_player = player.HumanPlayer('O')
             game = TicTacToe()
@@ -117,17 +128,25 @@ def play(print_game=True):
         elif choose_game_mode == 4:
             x_player = player.SmartComputerPlayer('X')
             o_player = player.RandomComputerPlayer('O')
-            game = TicTacToe()
+            game = TicTacToe(board)
 
         elif choose_game_mode == 5:
             x_player = player.SmartComputerPlayer('X')
             o_player = player.SmartComputerPlayer('O')
             game = TicTacToe()
 
+        # for testing purpose exit point
+        elif choose_game_mode == 6:
+            return 'Bye'
+
+
+        else:
+            x_player = None
+            o_player = None
+            game = TicTacToe()
 
         if print_game:
             game.print_the_board()
-
 
         letter = 'X'
         while game.calculate_the_number_of_empty_squares_on_the_board():
@@ -142,26 +161,16 @@ def play(print_game=True):
                     print('')
                 if game.current_winner:
                     if print_game:
-                        print(letter + 'wins!')
-                        print_game = False
-                        break
+                        print(letter + ' wins!')
+                        return letter
                     # return letter # ends the loop and exists tha game
-                letter = 'O' if letter == 'X' else 'X' # switches player
-            time.sleep(.8)
+                letter = 'O' if letter == 'X' else 'X'  # switches player
+            time.sleep(0)
 
         if print_game:
             print('It\'s a Tie!')
+            return 'Tie'
 
-        play_another = int(input("Play another game ? type 1 for yes and 2 for no(1-2)"))
-        if play_another == 1:
-            print_game = True
-            game_on = True
-        elif play_another == 2:
-            print('Game Over')
-            game_on = False
-        else:
-            raise ValueError('somethin went wrong invalid input should be 1 or 2 ')
 
 if __name__ == '__main__':
     play()
-
