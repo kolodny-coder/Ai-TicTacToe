@@ -165,7 +165,7 @@ def play(print_game=True, board=None):
                         return letter
                     # return letter # ends the loop and exists tha game
                 letter = 'O' if letter == 'X' else 'X'  # switches player
-            time.sleep(0)
+            time.sleep(0.8)
 
         if print_game:
             print('It\'s a Tie!')
